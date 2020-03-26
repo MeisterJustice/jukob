@@ -1,0 +1,36 @@
+{
+  "name": "rilter",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node -r esm ./bin/www",
+    "dev": "nodemon -r esm ./bin/www",
+    "lint": "eslint .",
+    "lint:fix": "eslint. --fix"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cloudinary": "^1.20.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "esm": "^3.2.25",
+    "express": "~4.16.1",
+    "express-session": "^1.17.0",
+    "http-errors": "~1.6.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.9.6",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.2",
+    "multer-storage-cloudinary": "^2.2.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.2",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.0.1",
+    "util": "^0.12.2"
+  }
+}

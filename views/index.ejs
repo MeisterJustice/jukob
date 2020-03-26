@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+  <h1><%= title %></h1>
+
+  <% if(error && error.length > 0){ %>
+  <div class="alert alert-danger text-center" role="alert">
+    <%=error%>
+  </div>
+  <% } %>
+  <% if(success && success.length > 0){ %>
+  <div class="alert alert-success text-center" role="alert">
+    <%=success%>
+  </div>
+  <% } %>
+  <p>Welcome to <%= title %></p>
+  <a href="/profile">go to profile</a>
+  <a href="/login">login</a>
+  <a href="/signup">register</a>
+</body>
+
+</html>
