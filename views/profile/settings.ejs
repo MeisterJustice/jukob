@@ -10,10 +10,21 @@
 
 <body>
 
+        <% if(error && error.length > 0){ %>
+            <div class="alert alert-danger text-center" role="alert">
+            <%=error%>
+            </div>
+        <% } %>
+        <% if(success && success.length > 0){ %>
+            <div class="alert alert-success text-center" role="alert">
+            <%=success%>
+            </div>
+        <% } %>
+
     <div><%=user.username%></div>
     <img src="<%=user.secure_image_url%>" height="250" width="250" alt="">
 
-<form action="/profile/?_method=PUT" method="post">
+<form action="/profile/?_method=PUT" method="post" enctype="multipart/form-data">
     <div>
         <label for="image">change profile image</label>
         <input id="profileImage" name="image" type="file">
@@ -37,6 +48,10 @@
     <div>
         <label>phone_number</label>
         <input name="phone_number" type="number" value="<%=user.phone_number%>">
+    </div>
+    <div>
+        <label>confirm with password</label>
+        <input name="currentPassword" type="password">
     </div>
     <div>
         <button>submit</button>

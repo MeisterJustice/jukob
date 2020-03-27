@@ -21,7 +21,8 @@ import {
 
 import {
   isLoggedIn, 
-  checkIfUserExists
+  checkIfUserExists,
+  isValidPassword
 } from '../validation/index';
 
 
@@ -39,9 +40,9 @@ router.get('/logout', errorHandler(getLogout));
 
 router.get('/profile', isLoggedIn, errorHandler(getProfile));
 
-router.get('/profile/settings', isLoggedIn, upload.single('image'), errorHandler(getProfileSettings));
+router.get('/profile/settings', isLoggedIn, errorHandler(getProfileSettings));
 
-router.put('profile', isLoggedIn, putProfile);
+router.put('/profile', isLoggedIn, upload.single('image'), errorHandler(isValidPassword), errorHandler(putProfile));
 
 
 module.exports = router;

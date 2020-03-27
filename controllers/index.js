@@ -112,29 +112,28 @@ export const putProfile = async (req, res, next) => {
     last_name,
     phone_number,
   } = req.body;
+  const user = await User.findById(req.user._id);
+  if (username) user.username = username;
+  if (email) user.email = email;
   if (req.file) {
-    let findUser = `SELECT * FROM users WHERE username = '${req.user.username}'`;
-    connection.query(findUser, (err, result) => {
-      if (err) throw err;
-      if (result[0].public_image_id) cloudinary.v2.uploader.destroy(result[0].public_image_id);
-      const { secure_url, public_id } = req.file;
-      let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number, secure_image_url: secure_url, public_image_id: public_id };
-      let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
-      connection.query(updateUser, data, (err, result1) => {
-        if (err) throw err;
-        const login = util.promisify(req.login.bind(req));
-        login(result1[0]);
-        res.redirect('back', { user: result1[0] });
-      });
-    });
-
-    let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number };
+    if (user.image.public_id) await cloudinary.v2.uploader.destroy(user.image.public_id);
+    const { secure_url, public_id } = req.file;
+    user.image = { secure_url, public_id };
+    let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number, secure_image_url: secure_url, public_image_id: public_id };
     let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
     connection.query(updateUser, data, (err, result2) => {
       if (err) throw err;
-      // const login = util.promisify(req.login.bind(req));
-      // login(result2[0]);
-      res.redirect('back', { user: result2[0] });
     });
   }
+  let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number };
+  let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
+  await user.save();
+  await connection.query(updateUser, data, (err, result2) => {
+    if (err) throw err;
+  });
+  const login = await util.promisify(req.login.bind(req));
+  await login(user);
+  req.flash('success', 'Profile successfully updated!');
+  res.redirect(`back`);
 }
+

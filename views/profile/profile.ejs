@@ -9,6 +9,17 @@
 <body>
     <h1>profile page</h1>
 
+    <% if(error && error.length > 0){ %>
+        <div class="alert alert-danger text-center" role="alert">
+        <%=error%>
+        </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+        <div class="alert alert-success text-center" role="alert">
+        <%=success%>
+        </div>
+    <% } %>
+
     <h3>Welcome <%= user.username %> with id <%=user.users_id%></h3>
 
     <p><a href="/profile/settings">go to settings</a></p>

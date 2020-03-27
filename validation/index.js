@@ -4,8 +4,8 @@ export const isLoggedIn = (req, res, next) => {
     if(req.isAuthenticated()){
         return next();
     }
-    // req.flash("error", "You need to be logged in to do that");
-    // req.session.redirectTo = req.originalUrl;
+    req.flash("error", "You need to be logged in to do that");
+    req.session.redirectTo = req.originalUrl;
     res.redirect("/login");
 }
 
@@ -21,4 +21,15 @@ export const checkIfUserExists = async (req, res, next) => {
         return res.redirect('/register');
     }
     next();
+}
+
+export const isValidPassword = async (req, res, next) => {
+    const { user } = await User.authenticate()(req.user.username, req.body.currentPassword)
+    if(user) { 
+        res.locals.user = user;
+        next();
+    } else {
+        req.flash('error', 'current password is incorrect!');
+        return res.redirect('back');
+    }
 }
