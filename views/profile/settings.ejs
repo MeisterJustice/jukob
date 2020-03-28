@@ -10,53 +10,89 @@
 
 <body>
 
-        <% if(error && error.length > 0){ %>
-            <div class="alert alert-danger text-center" role="alert">
-            <%=error%>
-            </div>
-        <% } %>
-        <% if(success && success.length > 0){ %>
-            <div class="alert alert-success text-center" role="alert">
-            <%=success%>
-            </div>
-        <% } %>
+    <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger text-center" role="alert">
+        <%=error%>
+    </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+    <div class="alert alert-success text-center" role="alert">
+        <%=success%>
+    </div>
+    <% } %>
 
     <div><%=user.username%></div>
     <img src="<%=user.secure_image_url%>" height="250" width="250" alt="">
 
-<form action="/profile/?_method=PUT" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="image">change profile image</label>
-        <input id="profileImage" name="image" type="file">
-    </div>
-    <div>
-        <label>username</label>
-        <input name="username" type="text" value="<%=user.username%>">
-    </div>
-    <div>
-        <label>email</label>
-        <input name="email" type="text" value="<%=user.email%>">
-    </div>
-    <div>
-        <label>first_name</label>
-        <input name="first_name" type="text" value="<%=user.first_name%>">
-    </div>
-    <div>
-        <label>last_name</label>
-        <input name="last_name" type="text" value="<%=user.last_name%>">
-    </div>
-    <div>
-        <label>phone_number</label>
-        <input name="phone_number" type="number" value="<%=user.phone_number%>">
-    </div>
-    <div>
-        <label>confirm with password</label>
-        <input name="currentPassword" type="password">
-    </div>
-    <div>
-        <button>submit</button>
-    </div>
-</form>
+    <form action="/profile/?_method=PUT" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="image">change profile image</label>
+            <input id="profileImage" name="image" type="file">
+        </div>
+        <div>
+            <label>username</label>
+            <input name="username" type="text" value="<%=user.username%>">
+        </div>
+        <div>
+            <label>email</label>
+            <input name="email" type="text" value="<%=user.email%>">
+        </div>
+        <div>
+            <label>first_name</label>
+            <input name="first_name" type="text" value="<%=user.first_name%>">
+        </div>
+        <div>
+            <label>last_name</label>
+            <input name="last_name" type="text" value="<%=user.last_name%>">
+        </div>
+        <div>
+            <label>phone_number</label>
+            <input name="phone_number" type="number" value="<%=user.phone_number%>">
+        </div>
+        <div>
+            <label for="">university / college / polythecnic</label>
+            <select name="university" id="">
+                <option value="<%=user.university_id%>">select</option>
+                <%university.forEach((uni) => {%>
+                <option value="<%=uni.university_id%>"><%=uni.name%></option>
+                <%})%>
+            </select>
+        </div>
+        <div>
+            <label for="">faculty</label>
+            <select name="faculty" id="">
+                <option value="<%=user.faculty_id%>">select</option>
+                <%faculty.forEach((faculty) => {%>
+                <option value="<%=faculty.faculty_id%>"><%=faculty.name%></option>
+                <%})%>
+            </select>
+        </div>
+        <div>
+            <label for="">department</label>
+            <select name="department" id="">
+                <option value="<%=user.department_id%>">select</option>
+                <%department.forEach((dep) => {%>
+                <option value="<%=dep.department_id%>"><%=dep.name%></option>
+                <%})%>
+            </select>
+        </div>
+        <div>
+            <label for="">skill</label>
+            <select name="skill" id="">
+                <option value="<%=user.skills_id%>">select</option>
+                <%skill.forEach((skill) => {%>
+                <option value="<%=skill.skills_id%>"><%=skill.skill_title%></option>
+                <%})%>
+            </select>
+        </div>
+        <div>
+            <label>confirm with password</label>
+            <input name="currentPassword" type="password">
+        </div>
+        <div>
+            <button>submit</button>
+        </div>
+    </form>
 
 </body>
 

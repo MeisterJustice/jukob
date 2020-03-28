@@ -99,7 +99,26 @@ export const getProfileSettings = async (req, res, next) => {
   let findUserInfo = `SELECT * FROM users WHERE username = '${req.user.username}'`;
   connection.query(findUserInfo, (err, result) => {
     if (err) throw err;
-    res.render('profile/settings', { user: result[0] });
+    let findDepartments = `SELECT * FROM department`;
+    connection.query(findDepartments, (err, department) => {
+      if(err) throw err;
+      let findSkills = `SELECT * FROM skills`;
+      connection.query(findSkills, (err, skill) => {
+        if(err) throw err;
+        let findUniversities = `SELECT * FROM university`;
+        connection.query(findUniversities, (err, university) => {
+          if(err) throw err;
+          let findFaculty = `SELECT * FROM faculty`;
+          connection.query(findFaculty, (err, faculty) => {
+            if(err) throw err;
+            console.log(result[0]);
+            res.render('profile/settings', { user: result[0], department, skill, university, faculty });
+          })
+        })
+        
+      })
+    })
+    
   })
 
 }
@@ -111,7 +130,15 @@ export const putProfile = async (req, res, next) => {
     first_name,
     last_name,
     phone_number,
+    university,
+    faculty,
+    department,
+    skill
   } = req.body;
+  let uni = await parseInt(university);
+  let fac = await parseInt(faculty);
+  let dep = await parseInt(department);
+  let ski = await parseInt(skill);
   const user = await User.findById(req.user._id);
   if (username) user.username = username;
   if (email) user.email = email;
@@ -119,13 +146,13 @@ export const putProfile = async (req, res, next) => {
     if (user.image.public_id) await cloudinary.v2.uploader.destroy(user.image.public_id);
     const { secure_url, public_id } = req.file;
     user.image = { secure_url, public_id };
-    let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number, secure_image_url: secure_url, public_image_id: public_id };
+    let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number, secure_image_url: secure_url, public_image_id: public_id, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
     let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
     connection.query(updateUser, data, (err, result2) => {
       if (err) throw err;
     });
   }
-  let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number };
+  let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone_number, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
   let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
   await user.save();
   await connection.query(updateUser, data, (err, result2) => {
