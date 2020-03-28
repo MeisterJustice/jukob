@@ -13,6 +13,7 @@ import {
   getProfileSettings, 
   postsignup, 
   postLogin,
+  deleteUser,
 } from '../controllers';
 
 import {
@@ -43,6 +44,8 @@ router.get('/profile', isLoggedIn, errorHandler(getProfile));
 router.get('/profile/settings', isLoggedIn, errorHandler(getProfileSettings));
 
 router.put('/profile', isLoggedIn, upload.single('image'), errorHandler(isValidPassword), errorHandler(putProfile));
+
+router.delete('/profile/delete', isLoggedIn, errorHandler(deleteUser));
 
 
 module.exports = router;

@@ -47,12 +47,23 @@
         </div>
         <div>
             <label>phone_number</label>
-            <input name="phone_number" type="number" value="<%=user.phone_number%>">
+            <%if(user.phone_number) {%>
+                <input name="phone_number" type="number" value="<%=user.phone_number%>">
+            <%} else {%>
+                <input name="phone_number" type="number" required>
+            <%}%>
+
         </div>
         <div>
             <label for="">university / college / polythecnic</label>
             <select name="university" id="">
+                <%if(user.university_id) {%>
                 <option value="<%=user.university_id%>">select</option>
+                <%university.forEach((uni) => {%>
+                <option value="<%=uni.university_id%>"><%=uni.name%></option>
+                <%})%>
+                <%}%>
+                
                 <%university.forEach((uni) => {%>
                 <option value="<%=uni.university_id%>"><%=uni.name%></option>
                 <%})%>
@@ -61,7 +72,12 @@
         <div>
             <label for="">faculty</label>
             <select name="faculty" id="">
+                <%if(user.faculty_id) {%>
                 <option value="<%=user.faculty_id%>">select</option>
+                <%faculty.forEach((faculty) => {%>
+                <option value="<%=faculty.faculty_id%>"><%=faculty.name%></option>
+                <%})%>
+                <%}%>
                 <%faculty.forEach((faculty) => {%>
                 <option value="<%=faculty.faculty_id%>"><%=faculty.name%></option>
                 <%})%>
@@ -70,7 +86,12 @@
         <div>
             <label for="">department</label>
             <select name="department" id="">
+                <%if(user.department_id) {%>
                 <option value="<%=user.department_id%>">select</option>
+                <%department.forEach((department) => {%>
+                <option value="<%=department.department_id%>"><%=department.name%></option>
+                <%})%>
+                <%}%>
                 <%department.forEach((dep) => {%>
                 <option value="<%=dep.department_id%>"><%=dep.name%></option>
                 <%})%>
@@ -79,7 +100,12 @@
         <div>
             <label for="">skill</label>
             <select name="skill" id="">
+                <%if(user.skills_id) {%>
                 <option value="<%=user.skills_id%>">select</option>
+                <%skill.forEach((skill) => {%>
+                <option value="<%=skill.skill_id%>"><%=skill.skill_title%></option>
+                <%})%>
+                <%}%>
                 <%skill.forEach((skill) => {%>
                 <option value="<%=skill.skills_id%>"><%=skill.skill_title%></option>
                 <%})%>
@@ -92,6 +118,12 @@
         <div>
             <button>submit</button>
         </div>
+    </form>
+    <br>
+    <br>
+    <div>delete account</div>
+    <form action="/profile/delete?_method=DELETE" method="post">
+        <button>delete</button>
     </form>
 
 </body>
