@@ -22,5 +22,5 @@ const storage = cloudinaryStorage({
 
 module.exports = {
 	cloudinary,
-	storage
+	storage,
 }

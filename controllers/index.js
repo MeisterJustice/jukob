@@ -2,7 +2,6 @@ import mysql from 'mysql';
 import dbconfig from '../config/database';
 import util from 'util';
 import User from '../models';
-const cloudinary = require('../config/cloudinary');
 var connection = mysql.createConnection(dbconfig.connection);
 
 

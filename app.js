@@ -25,6 +25,7 @@ mongoose.connect('mongodb://localhost:27017/rilter', {
 
 // require routes
 var indexRouter = require('./routes');
+var sellRouter = require('./routes/sell');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -62,6 +63,7 @@ require('./config/passport')(passport);
 
 // configure routes
 app.use('/', indexRouter);
+app.use('/sell', sellRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
