@@ -9,7 +9,9 @@ import {
   postSell, 
   getSellShowPage, 
   getNew,
-  deleteItem
+  deleteItem,
+  getPutSell,
+  putSell
 } from '../controllers/sell';
 
 import {
@@ -32,6 +34,10 @@ router.get('/new', isLoggedIn, errorHandler(getNew));
 router.post('/', isLoggedIn, upload.array('images', 5), errorHandler(postSell));
 
 router.get('/:id', errorHandler(getSellShowPage));
+
+router.get('/:id/update', isLoggedIn, errorHandler(getPutSell));
+
+router.put('/:id', isLoggedIn, errorHandler(putSell));
 
 router.delete('/:id', errorHandler(deleteItem));
 

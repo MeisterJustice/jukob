@@ -13,6 +13,9 @@
    <p>seller: <%=item.first_name%> <%=item.last_name%></p>
 
    <div>delete item</div>
+   <div>
+        <a href="/sell/<%=item.sell_items_id%>/update">update item</a>
+    </div>
     <form action="/sell/<%=item.sell_items_id%>?_method=DELETE" method="post">
         <button>delete</button>
     </form>

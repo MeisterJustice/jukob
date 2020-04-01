@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <% if(error && error.length > 0){ %>
+    <div class="alert alert-danger text-center" role="alert">
+        <%=error%>
+    </div>
+    <% } %>
+    <% if(success && success.length > 0){ %>
+    <div class="alert alert-success text-center" role="alert">
+        <%=success%>
+    </div>
+    <% } %>
+
+
+    <h1>show page for <%=item.title%></h1>
+    <p><%=item.description%></p>
+    <div>price: <%=item.price%></div>
+    <p>seller: <%=item.first_name%> <%=item.last_name%></p>
+
+    <div>delete item</div>
+
+    <div>
+        <a href="/lodge/<%=item.lodges_id%>/update">update lodge</a>
+    </div>
+    <form action="/lodge/<%=item.lodges_id%>?_method=DELETE" method="post">
+        <button>delete</button>
+    </form>
+</body>
+
+</html>

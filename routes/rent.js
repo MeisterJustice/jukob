@@ -9,7 +9,9 @@ import {
   postRent, 
   getRentShowPage, 
   getNew,
-  deleteItem
+  deleteItem,
+  getPutRent,
+  putRent
 } from '../controllers/rent';
 
 import {
@@ -30,6 +32,10 @@ router.get('/new', isLoggedIn, errorHandler(getNew));
 router.post('/', isLoggedIn, upload.array('images', 5), errorHandler(postRent));
 
 router.get('/:id', errorHandler(getRentShowPage));
+
+router.get('/:id/update', isLoggedIn, errorHandler(getPutRent));
+
+router.put('/:id', isLoggedIn, errorHandler(putRent));
 
 router.delete('/:id', errorHandler(deleteItem));
 

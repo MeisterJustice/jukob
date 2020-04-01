@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>create new lodge</h1>
+    <form action="/lodge" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="">name</label>
+            <input name="name" type="text" required>
+        </div>
+        <div>
+            <label for="">description</label>
+            <textarea name="description" id="" cols="70" rows="20"></textarea>
+        </div>
+        <div>
+            <label for="">location</label>
+            <input name="location" type="text" required>
+        </div>
+        <div>
+            <label for="">price</label>
+            <input name="price" type="number" required>
+        </div>
+        <div>
+            <label for="">images</label>
+            <input name="images" type="file" accept='images/*' multiple required>
+        </div>
+        <button>post</button>
+    </form>
+</body>
+
+</html>
