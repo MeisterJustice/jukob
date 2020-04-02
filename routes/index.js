@@ -14,6 +14,7 @@ import {
   postsignup, 
   postLogin,
   deleteUser,
+  getProfileShow,
 } from '../controllers';
 
 import {
@@ -42,6 +43,8 @@ router.get('/logout', errorHandler(getLogout));
 router.get('/profile', isLoggedIn, errorHandler(getProfile));
 
 router.get('/profile/settings', isLoggedIn, errorHandler(getProfileSettings));
+
+router.get('/profile/:id', errorHandler(getProfileShow));
 
 router.put('/profile', isLoggedIn, upload.single('image'), errorHandler(isValidPassword), errorHandler(putProfile));
 

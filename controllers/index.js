@@ -122,6 +122,69 @@ export const getProfileSettings = async (req, res, next) => {
 
 }
 
+export const getProfileShow = async (req, res, next) => {
+  let userSell = `SELECT *
+  FROM
+  users AS u
+  INNER JOIN sell_items AS s
+  ON u.users_id = s.users_id
+  INNER JOIN (
+  SELECT *
+  FROM item_images
+  WHERE item_images_id IN (
+  SELECT MAX(item_images_id)
+  FROM item_images
+  GROUP BY sell_items_id
+  )
+  ) AS m 
+  ON s.sell_items_id = m.sell_items_id
+  WHERE u.username = '${req.params.id}'`;
+  connection.query(userSell, (err, user) => {
+    if (err) throw err;
+    console.log(user)
+    let userRent = `SELECT *
+      FROM
+      users AS u
+      INNER JOIN rent_items AS s
+      ON u.users_id = s.users_id
+      INNER JOIN (
+      SELECT *
+      FROM item_images
+      WHERE item_images_id IN (
+      SELECT MAX(item_images_id)
+      FROM item_images
+      GROUP BY rent_items_id
+      )
+      ) AS m 
+      ON s.rent_items_id = m.rent_items_id
+      WHERE u.username = '${req.params.id}'`;
+    connection.query(userRent, (err, user2) => {
+      if (err) throw err;
+      let userLodge = `SELECT *
+        FROM
+        users AS u
+        INNER JOIN lodges AS s
+        ON u.users_id = s.users_id
+        INNER JOIN (
+        SELECT *
+        FROM item_images
+        WHERE item_images_id IN (
+        SELECT MAX(item_images_id)
+        FROM item_images
+        GROUP BY lodges_id
+        )
+        ) AS m 
+        ON s.lodges_id = m.lodges_id
+        WHERE u.username = '${req.params.id}'`;
+      connection.query(userLodge, (err, user3) => {
+        if (err) throw err;
+        res.render('profile/show', { sell: user, rent: user2, lodge: user3 });
+      })
+    })
+
+  })
+}
+
 export const putProfile = async (req, res, next) => {
   const {
     username,

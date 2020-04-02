@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>profile show page</h2>
+    <div>
+        <h3><%=sell[0].first_name%></h3>
+        <h3><%=sell[0].phone_number%></h3>
+    </div>
+    <p>items posted on sell</p>
+    <%sell.forEach((sell) => {%>
+    <div>
+        <h5><a href="/sell/<%=sell.sell_items_id%>"><%=sell.title%></a></h5>
+        <div>
+            <p><%=sell.description%></p>
+            <p><%=sell.price%></p>
+        </div>
+        <div>
+            <img src="<%=sell.image_url%>" height="100" width="100" alt="">
+        </div>
+    </div>
+    <%})%>
+
+    <p>items posted on rent</p>
+    <%rent.forEach((rent) => {%>
+    <div>
+        <h5><a href="/rent/<%=rent.rent_items_id%>"><%=rent.title%> </a> </h5> <div>
+            <p><%=rent.description%></p>
+            <p><%=rent.price%></p>
+        </div>
+        <div>
+            <img src="<%=rent.image_url%>" height="100" width="100" alt="">
+        </div>
+    </div>
+    <%})%>
+
+    <p>lodges posted</p>
+    <%lodge.forEach((lodge) => {%>
+    <div>
+        <h5><a href="/lodge/<%=lodge.lodges_id%>"><%=lodge.name%> </a> </h5> <div>
+            <p><%=lodge.description%></p>
+            <p><%=lodge.price%></p>
+        </div>
+        <div>
+            <img src="<%=lodge.image_url%>" height="100" width="100" alt="">
+        </div>
+    </div>
+    <%})%>
+</body>
+
+</html>

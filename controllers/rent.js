@@ -37,7 +37,7 @@ export const getRentShowPage = async (req, res, next) => {
     WHERE s.rent_items_id = ${req.params.id}`;
     connection.query(getRent, (err, item) => {
         if (err) throw err;
-        res.render('rent/show', { item: item[0] });
+        res.render('rent/show', { item: item[0], items: item  });
     })
 }
 

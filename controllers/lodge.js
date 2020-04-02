@@ -37,7 +37,7 @@ export const getLodgeShowPage = async (req, res, next) => {
     WHERE s.lodges_id = ${req.params.id}`;
     connection.query(getSell, (err, item) => {
         if (err) throw err;
-        res.render('lodge/show', { item: item[0] });
+        res.render('lodge/show', { item: item[0], items: item  });
     })
 }
 

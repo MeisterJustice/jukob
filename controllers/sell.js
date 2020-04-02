@@ -37,7 +37,7 @@ export const getSellShowPage = async (req, res, next) => {
     WHERE s.sell_items_id = ${req.params.id}`;
     connection.query(getSell, (err, item) => {
         if (err) throw err;
-        res.render('sell/show', { item: item[0] });
+        res.render('sell/show', { item: item[0], items: item });
     })
 }
 

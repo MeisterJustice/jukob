@@ -10,7 +10,12 @@
     <h1>show page for <%=item.title%></h1>
    <p><%=item.description%></p>
    <div>price: <%=item.price%></div>
-   <p>seller: <%=item.first_name%> <%=item.last_name%></p>
+   <p>seller: <a href="/profile/<%=item.username%>"><%=item.first_name%> <%=item.last_name%></a></p>
+   <%items.forEach((image) => {%>
+    <div>
+        <img src="<%=image.image_url%>" height="100" width="100" alt="">
+    </div>
+   <%})%>
 
    <div>delete item</div>
    <div>
