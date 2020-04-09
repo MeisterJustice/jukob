@@ -15,6 +15,7 @@ import {
   postLogin,
   deleteUser,
   getProfileShow,
+  getCustom,
 } from '../controllers';
 
 import {
@@ -29,6 +30,8 @@ import {
 
 
 router.get('/', errorHandler(getIndex));
+
+router.post('/', errorHandler(getCustom));
 
 router.get('/login', errorHandler(getLogin));
 

@@ -13,21 +13,21 @@
 </div>
 
 <div class="container-fluid mt-5 d-block d-lg-none">
-  <form method="GET" action="/">
+  <form method="POST" action="/">
     <div class="row">
       <div class="col-12">
         <label for="school">Institution</label>
-        <select id="school" class="custom-select form-control form-control-lg" required>
-          <option value="0">FUTO</option>
-          <option value="1">ANSU</option>
-          <option value="2">IMSU</option>
-          <option value="3">UNN</option>
-          <option value="3">UNIZIK</option>
-          <option value="3">UNILORIN</option>
+        <select name="school" id="school" class="custom-select form-control form-control-lg" required>
+          <option value="futo">futo</option>
+          <option value="ansu">ansu</option>
+          <option value="rst">rst</option>
+          <option value="Uniben">Uniben</option>
+          <option value="unizik">unizik</option>
+          <option value="unn">unn</option>
         </select>
       </div>
       <div class="col-12 mt-3">
-        <input type="radio" name="choice-of-search" id="search-for-item" value="item">
+        <input type="radio" name="search" id="search-for-item" value="item">
         <label for="search-for-item">I want to find items for sale</label>
         <div class="reveal-if-active">
           <label for="search-for-item">Name</label>
@@ -36,7 +36,7 @@
         </div>
       </div>
       <div class="col-12">
-        <input type="radio" name="choice-of-search" id="search-for-lodge" value="lodge">
+        <input type="radio" name="search" id="search-for-lodge" value="lodge">
         <label for="search-for-lodge">I want to look for lodges</label>
         <div class="reveal-if-active">
           <label for="search-for-lodge">Location</label>
@@ -48,9 +48,8 @@
           <select name="priceRange" id="select-lodge-price" class="custom-select">
             <option value="0">Any</option>
             <option value="1">Below 50k</option>
-            <option value="2">50k to 69k</option>
-            <option value="3">70k to 99k</option>
-            <option value="3">100k above</option>
+            <option value="2">50k to 89k</option>
+            <option value="3">90k above</option>
           </select>
         </div>
 
@@ -69,21 +68,21 @@
         <h1 class="py-2 title">
           Find lodges and buy the coolest items<br>for sale in your school
         </h1>
-        <form method="GET" action="/" class="headerForm1 headerForm">
+        <form method="POST" action="/" class="headerForm1 headerForm">
           <div class="row">
             <div class="col-12">
               <label for="school">Institution</label>
-              <select id="school" class="custom-select" required>
-                <option value="0">FUTO</option>
-                <option value="1">ANSU</option>
-                <option value="2">IMSU</option>
-                <option value="3">UNN</option>
-                <option value="3">UNIZIK</option>
-                <option value="3">UNILORIN</option>
+              <select name="school" id="school" class="custom-select" required>
+                <option value="futo">futo</option>
+                <option value="alvan">alvan</option>
+                <option value="rst">rst</option>
+                <option value="Uniben">Uniben</option>
+                <option value="unizik">unizik</option>
+                <option value="unn">unn</option>
               </select>
             </div>
             <div class="col-12 mt-3">
-              <input type="radio" name="choice-of-search" id="search-for-item" value="item">
+              <input type="radio" name="search" id="search-for-item" value="item">
               <label for="search-for-item">I want to search items for sale</label>
               <div class="reveal-if-active">
                 <label for="search-for-item">Name</label>
@@ -92,7 +91,7 @@
               </div>
             </div>
             <div class="col-12">
-              <input type="radio" name="choice-of-search" id="search-for-lodge" value="lodge">
+              <input type="radio" name="search" id="search-for-lodge" value="lodge">
               <label for="search-for-lodge">I want to look for lodges</label>
               <div class="reveal-if-active">
                 <label for="search-for-lodge">Location</label>
@@ -104,9 +103,8 @@
                 <select name="priceRange" id="select-lodge-price" class="custom-select">
                   <option value="0">Any</option>
                   <option value="1">Below 50k</option>
-                  <option value="2">50k to 69k</option>
-                  <option value="3">70k to 99k</option>
-                  <option value="3">100k above</option>
+                  <option value="2">50k to 89k</option>
+                  <option value="3">90k above</option>
                 </select>
               </div>
 
@@ -129,125 +127,153 @@
 <div class="mt-5 containerr">
   <div>
     <h2 class="px-3 title d-inline">Explore rilter and sell stuff with ease</h2>
-    <a href="/sell/new" class="btn btn-r btn-lg">Lemme sell</a>
-    <div class="gallery js-flickity text-white mt-3" data-flickity-options='{ "wrapAround": true }'>
-      <div class="gallery-cell lazy-background phone">
-        <p class="ml-2">Sell your phone with ease</p>
-        <h4 class="ml-2">Phones</h4>
-        <div class="galler-wrapper">
-        </div>
+    <a href="/sell/new" class="btn btn-r btn-lg" data-toggle="modal" data-target="#sellModal">Lemme sell</a>
+  <div class="gallery js-flickity text-white mt-3" data-flickity-options='{ "wrapAround": true }'>
+    <div class="gallery-cell lazy-background phone">
+      <p class="ml-2">Sell your phone with ease</p>
+      <h4 class="ml-2">Phones</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background watch">
-        <p class="ml-2">Put that watch for sale</p>
-        <h4 class="ml-2">Wrist watches</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background watch">
+      <p class="ml-2">Put that watch for sale</p>
+      <h4 class="ml-2">Wrist watches</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background lodge">
-        <p class="ml-2">Post lodges near you</p>
-        <h4 class="ml-2">Lodges</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background lodge">
+      <p class="ml-2">Post lodges near you</p>
+      <h4 class="ml-2">Lodges</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background shoe">
-        <p class="ml-2">Advertise your shoes</p>
-        <h4 class="ml-2">Shoes</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background shoe">
+      <p class="ml-2">Advertise your shoes</p>
+      <h4 class="ml-2">Shoes</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background weavon">
-        <p class="ml-2">Sell beautiful weavons</p>
-        <h4 class="ml-2">Weavons</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background weavon">
+      <p class="ml-2">Sell beautiful weavons</p>
+      <h4 class="ml-2">Weavons</h4>
+      <div class="galler-wrapper">
       </div>
+    </div>
 
-      <div class="gallery-cell lazy-background game">
-        <p class="ml-2">Affordable video games</p>
-        <h4 class="ml-2">Games</h4>
-        <div class="galler-wrapper">
-        </div>
+    <div class="gallery-cell lazy-background game">
+      <p class="ml-2">Affordable video games</p>
+      <h4 class="ml-2">Games</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background foam">
-        <p class="ml-2">Get value for your foam</p>
-        <h4 class="ml-2">Foams</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background foam">
+      <p class="ml-2">Get value for your foam</p>
+      <h4 class="ml-2">Foams</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background generator">
-        <p class="ml-2">Receive the best prices for your gen</p>
-        <h4 class="ml-2">Generators</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background generator">
+      <p class="ml-2">Receive the best prices for your gen</p>
+      <h4 class="ml-2">Generators</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background tv">
-        <p class="ml-2">Register your TV for sale</p>
-        <h4 class="ml-2">TVs</h4>
-        <div class="galler-wrapper">
-        </div>
+    </div>
+    <div class="gallery-cell lazy-background tv">
+      <p class="ml-2">Register your TV for sale</p>
+      <h4 class="ml-2">TVs</h4>
+      <div class="galler-wrapper">
       </div>
-      <div class="gallery-cell lazy-background textbook">
-        <p class="ml-2">Sell those abandoned textbooks</p>
-        <h4 class="ml-2">Textbooks</h4>
-        <div class="galler-wrapper">
+    </div>
+    <div class="gallery-cell lazy-background textbook">
+      <p class="ml-2">Sell those abandoned textbooks</p>
+      <h4 class="ml-2">Textbooks</h4>
+      <div class="galler-wrapper">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section-2">
+  <div class="row">
+    <div class="order-3 order-lg-1 col-12 col-lg-5 pt-5">
+      <h3 class="title px-3">
+        Buy items faster on rilter,<br>with confidence
+      </h3>
+      <div class="pt-3 px-3">
+        <i class="fas red fa-check-circle d-inline"></i>
+        <h5 class="title d-inline">Secure Payment Gateway, Guaranteed</h5>
+        <p class="muted text-justify">Online payment is optional and released to the seller once buyer approves of the
+          sold item</p>
+      </div>
+      <div class="pt-3 px-3">
+        <i class="fas red fa-check-circle d-inline"></i>
+        <h5 class="title d-inline">Know the price upfront or negotiate</h5>
+        <p class="muted text-justify">Items for sale either have a fixed price or negotiable. If negotiable, you get
+          to make an offer to the seller and await a response</p>
+      </div>
+      <div class="pt-3 px-3">
+        <i class="fas red fa-check-circle d-inline"></i>
+        <h5 class="title d-inline">Eliminating the traditional method of finding lodges</h5>
+        <p class="muted text-justify">You get all listed lodges near you with all the information you need in a matter
+          of minutes</p>
+      </div>
+      <div class="pt-3 px-3">
+        <i class="fas red fa-check-circle d-inline"></i>
+        <h5 class="title d-inline">We're here for you 24/7</h5>
+        <p class="muted text-justify">Rilter is here for you, anything from answering any questions to resolving any
+          issues, at any time.</p>
+      </div>
+    </div>
+    <div class="order-2 order-lg 2 col-12 col-lg-1"></div>
+    <div class="order-1 order-lg-3 col-12 col-lg-6 cart-image mt-5">
+    </div>
+  </div>
+</div>
+
+<div class="section-3">
+
+  <div class="row border section-3-wrapper mx-3">
+    <div class="h-100 col-md-6 bg-danger lazy-background student-lodge">
+
+    </div>
+    <div class="h-100 col-md-6 border d-flex justify-content-center align-items-center">
+      <div>
+        <h3 class="title text-center">Coolest lodges in your school</h3>
+        <p class="text-justify text-center">
+          Find your dream apartment in minutes. Eliminate the hazzle of looking for an apartment in the scorching heat
+        </p>
+        <div class="d-flex justify-content-center align-items-center">
+          <a href="/lodge" class="btn btn-round btn-r btn-lg">Find now!</a>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 
-  <div class="section-2">
-    <div class="row">
-      <div class="order-3 order-lg-1 col-12 col-lg-5 pt-5">
-        <h3 class="title px-3">
-          Buy items faster on rilter,<br>with confidence
-        </h3>
-        <div class="pt-3 px-3">
-          <i class="fas red fa-check-circle d-inline"></i>
-          <h5 class="title d-inline">Secure Payment Gateway, Guaranteed</h5>
-          <p class="muted text-justify">Online payment is optional and released to the seller once buyer approves of the
-            sold item</p>
-        </div>
-        <div class="pt-3 px-3">
-          <i class="fas red fa-check-circle d-inline"></i>
-          <h5 class="title d-inline">Know the price upfront or negotiate</h5>
-          <p class="muted text-justify">Items for sale either have a fixed price or negotiable. If negotiable, you get
-            to make an offer to the seller and await a response</p>
-        </div>
-        <div class="pt-3 px-3">
-          <i class="fas red fa-check-circle d-inline"></i>
-          <h5 class="title d-inline">Eliminating the traditional method of finding lodges</h5>
-          <p class="muted text-justify">You get all listed lodges near you with all the information you need in a matter
-            of minutes</p>
-        </div>
-        <div class="pt-3 px-3">
-          <i class="fas red fa-check-circle d-inline"></i>
-          <h5 class="title d-inline">We're here for you 24/7</h5>
-          <p class="muted text-justify">Rilter is here for you, anything from answering any questions to resolving any
-            issues, at any time.</p>
-        </div>
+<!-- modal -->
+<div class="modal fade" id="sellModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title title" id="exampleModalLongTitle">Choose what you need to do</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="order-2 order-lg 2 col-12 col-lg-1"></div>
-      <div class="order-1 order-lg-3 col-12 col-lg-6 cart-image mt-5">
-      </div>
-    </div>
-  </div>
-
-  <div class="section-3">
-
-    <div class="row border section-3-wrapper mx-3">
-      <div class="h-100 col-md-6 bg-danger lazy-background student-lodge">
-
-      </div>
-      <div class="h-100 col-md-6 border d-flex justify-content-center align-items-center">
-        <div>
-          <h3 class="title text-center">Coolest lodges in your school</h3>
-          <p class="text-justify text-center">
-            Find your dream apartment in minutes. Eliminate the hazzle of looking for an apartment in the scorching heat
-          </p>
-          <div class="d-flex justify-content-center align-items-center">
-            <a href="/lodge" class="btn btn-round btn-r btn-lg">Find now!</a>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            <a href="/lodge/new" class="btn btn-r btn-block">Post a lodge</a>
+          </div>
+          <div class="col-12 col-md-6">
+            <a href="/sell/new" class="btn btn-r btn-block">Post item for sell</a>
           </div>
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

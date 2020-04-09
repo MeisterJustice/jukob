@@ -9,6 +9,126 @@ export const getIndex = async (req, res, next) => {
   res.render('index', { title: 'Express' });
 }
 
+export const getCustom = async (req, res, next) => {
+  if (req.body.search == 'item') {
+    let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN sell_items AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY sell_items_id
+    )
+    ) AS m ON s.sell_items_id = m.sell_items_id
+    WHERE un.name = '${req.body.school}' AND s.title LIKE '%${req.body.itemName}%'`;
+    connection.query(findItems, (err, items) => {
+      if (err) throw err;
+      res.render('sell/index', { items });
+    })
+  }
+  if (req.body.search == 'lodge') {
+    if (req.body.priceRange == '0') {
+      let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id
+    WHERE un.name = '${req.body.school}' AND s.location LIKE '%${req.body.location}%'`;
+      connection.query(findItems, (err, items) => {
+        if (err) throw err;
+        res.render('lodge/index', { items });
+      });
+    }
+    if (req.body.priceRange == '1') {
+      let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id
+    WHERE un.name = '${req.body.school}' AND s.location LIKE '%${req.body.location}%' AND s.price BETWEEN 1 AND 49000`;
+      connection.query(findItems, (err, items) => {
+        if (err) throw err;
+        res.render('lodge/index', { items });
+      })
+    }
+    if (req.body.priceRange == '2') {
+      let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id
+    WHERE un.name = '${req.body.school}' AND s.location LIKE '%${req.body.location}%' AND s.price BETWEEN 50000 AND 89000`;
+      connection.query(findItems, (err, items) => {
+        if (err) throw err;
+        res.render('lodge/index', { items });
+      })
+    }
+    if (req.body.priceRange == '3') {
+      let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id
+    WHERE un.name = '${req.body.school}' AND s.location LIKE '%${req.body.location}%' AND s.price > 89000`;
+      connection.query(findItems, (err, items) => {
+        if (err) throw err;
+        res.render('lodge/index', { items });
+      })
+    }
+  }
+}
+
 
 export const getsignup = async (req, res, next) => {
   res.render('auth/signup', { message: req.flash('signupMessage') });
