@@ -16,6 +16,7 @@ import {
   deleteUser,
   getProfileShow,
   getCustom,
+  searchUser,
 } from '../controllers';
 
 import {
@@ -32,6 +33,8 @@ import {
 router.get('/', errorHandler(getIndex));
 
 router.post('/', errorHandler(getCustom));
+
+router.post('/search', errorHandler(searchUser));
 
 router.get('/login', errorHandler(getLogin));
 

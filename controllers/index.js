@@ -9,6 +9,14 @@ export const getIndex = async (req, res, next) => {
   res.render('index', { title: 'Express' });
 }
 
+export const searchUser = async (req, res, next) => {
+  let user = `SELECT * FROM users WHERE username LIKE '%${req.body.user}%'`;
+  connection.query(user, (err, users) => {
+    if(err) throw err;
+    console.log(users);
+  });
+}
+
 export const getCustom = async (req, res, next) => {
   if (req.body.search == 'item') {
     let findItems = `SELECT *
