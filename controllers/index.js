@@ -12,7 +12,7 @@ export const getIndex = async (req, res, next) => {
 export const searchUser = async (req, res, next) => {
   let user = `SELECT * FROM users WHERE username LIKE '%${req.body.user}%'`;
   connection.query(user, (err, users) => {
-    if(err) throw err;
+    if (err) throw err;
     console.log(users);
   });
 }
@@ -139,7 +139,11 @@ export const getCustom = async (req, res, next) => {
 
 
 export const getsignup = async (req, res, next) => {
-  res.render('auth/signup', { message: req.flash('signupMessage') });
+  let uni = `SELECT * FROM university`;
+  connection.query(uni, (err, university) => {
+    if (err) throw err;
+    res.render('auth/signup', { university });
+  })
 }
 
 export const postsignup = async (req, res, next) => {
@@ -156,7 +160,7 @@ export const postsignup = async (req, res, next) => {
       username: req.body.username
     });
     const user = await User.register(newUser, req.body.password);
-    const data = await { username: user.username, email: user.email, password: user.salt, secure_image_url: user.image.secure_url };
+    const data = await { username: user.username, email: user.email, password: user.salt, secure_image_url: user.image.secure_url, university_id: parseInt(req.body.university) };
     const insertUser = `INSERT INTO users SET ?`;
     connection.query(insertUser, data, (err, result) => {
       if (err) {
@@ -174,7 +178,7 @@ export const postsignup = async (req, res, next) => {
       });
     })
   } catch (err) {
-    deleteProfileImage(req);
+    // deleteProfileImage(req);
     const { username, email } = req.body;
     let error = err.message;
     if (error.includes('duplicate') && error.includes('index: email_1 dup key')) {

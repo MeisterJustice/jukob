@@ -258,14 +258,14 @@ input[type="checkbox"]:checked~.reveal-if-active {
 }
 
 form button.btn.btn-outline-primary {
-  color: #E71D36 !important;
-  border-color: #E71D36 !important;
+  color: #29C18D !important;
+  border-color: #29C18D !important;
 }
 
 form button.btn.btn-outline-primary:hover {
   color: #FFFFFF !important;
-  border-color: #E71D36 !important;
-  background-color: #E71D36 !important;
+  border-color: #29C18D !important;
+  background-color: #29C18D !important;
 }
 
 /* ===================================
@@ -276,15 +276,15 @@ form button.btn.btn-outline-primary:hover {
 }
 
 .btn.btn-r {
-  background: #E71D36 !important;
-  border: 1px solid #E71D36;
+  background: #29C18D !important;
+  border: 1px solid #29C18D;
   color: #FFFFFF !important;
   transition: .3s all ease;
 }
 
 .btn.btn-r:hover {
   background: #FFFFFF !important;
-  color: #E71D36 !important;
+  color: #29C18D !important;
 }
 
 /*=====================================*/

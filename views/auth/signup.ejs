@@ -1,47 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/auth.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <img class="wave" src="images/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="images/bg.svg">
+        </div>
+        <div class="login-content">
+            <form action="/signup" method="POST">
+                <img src="images/avatar.svg">
+                <h2 class="title">WELCOME</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Username" name="username" type="text" class="input" required>
+                    </div>
+                </div>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Email" name="email" type="email" class="input" required>
+                    </div>
+                </div>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="div">
+                        <div class="h5">Institution</div>
+                        <select class="input in" name="university" id="">
+                            <%university.forEach((uni) => {%>
+                            <option value="<%=uni.university_id%>"><%=uni.name%></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Password" id="new-password" name="password" type="password" class="input" required>
+                    </div>
+                </div>
+                <div id="validation-message"></div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Confirm password" id="password-confirmation" type="password" class="input" required>
+                    </div>
+                </div>
+                <a href="/login">Already Registered?</a>
+                <a href="/signup">Forgot password?</a>
+                <button id="update-profile" type="submit" class="btn">Register</button>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="javascripts/auth.js"></script>
+</body>
+<!-- 
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
-
 <body>
-    <h1>register page</h1>
-
-    <% if(error && error.length > 0){ %>
-        <div class="alert alert-danger text-center" role="alert">
-        <%=error%>
+    <form action="/signup" method="post">
+        <input type="text" name="username" placeholder="username">
+        <div>
+            <input type="text" name="email" placeholder="email">
         </div>
-    <% } %>
-    <% if(success && success.length > 0){ %>
-        <div class="alert alert-success text-center" role="alert">
-        <%=success%>
+        <div>
+            <input type="password" name="password" placeholder="password">
         </div>
-    <% } %>
-
-    <div>
-        <form action="/signup" method="post">
-            <div>
-                <label for="username">username</label>
-                <input type="text" name="username" required>
-            </div>
-            <div>
-                <label for="username">email</label>
-                <input type="text" name="email" required>
-            </div>
-            <div>
-                <label for="username">password</label>
-                <input type="password" name="password" required>
-            </div>
-            
-            <div>
-                <button>register</button>
-            </div>
-        </form>
-    </div>
-    
+        <select name="university" id="">
+            <%university.forEach((uni) => {%>
+                <option value="<%=uni.university_id%>"><%=uni.name%></option>
+            <%})%>
+        </select>
+        <button>sign up</button>
+    </form>
 </body>
-</html>
+</html> -->

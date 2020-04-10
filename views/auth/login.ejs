@@ -1,50 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/auth.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
-    <h1>login page</h1>
-
-    <% if(error && error.length > 0){ %>
-        <div class="alert alert-danger text-center" role="alert">
-        <%=error%>
+    <img class="wave" src="images/wave.png">
+    <div class="container">
+        <div class="img">
+            <img src="images/bg.svg">
         </div>
-    <% } %>
-    <% if(success && success.length > 0){ %>
-        <div class="alert alert-success text-center" role="alert">
-        <%=success%>
+        <div class="login-content">
+            <form action="/login" method="post">
+                <img src="images/avatar.svg">
+                <h2 class="title">Welcome Back</h2>
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Username" name="username" type="text" class="input" required>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <input placeholder="Password" name="password" type="password" class="input" required>
+                    </div>
+                </div>
+                <a href="/signup">Not registered?</a>
+                <a href="/signup">Forgot password?</a>
+                <button type="submit" class="btn">Login</button>
+            </form>
         </div>
-    <% } %>
-
-    <div>
-        <form action="/login" method="post">
-            <div>
-                <label for="username">username</label>
-                <input type="text" name="username" required>
-            </div>
-            <div>
-                <label for="username">password</label>
-                <input type="password" name="password" required>
-            </div>
-            <div>
-                <label for="remember">remember me?</label>
-                <input type="radio" name="remember" id="remember">
-            </div>
-            <div>
-                <button>login</button>
-            </div>
-            <div>
-                <p>not registered?</p>
-                <a href="/signup">register</a>
-            </div>
-        </form>
     </div>
-    
+    <script type="text/javascript" src="javascripts/auth.js"></script>
 </body>
+
 </html>
