@@ -2,6 +2,7 @@ import mysql from 'mysql';
 import dbconfig from '../config/database';
 import util from 'util';
 import User from '../models';
+import moment from 'moment';
 var connection = mysql.createConnection(dbconfig.connection);
 
 
@@ -220,9 +221,49 @@ export const getLogout = async (req, res, next) => {
 }
 
 export const getProfile = async (req, res, next) => {
-  connection.query(`SELECT * FROM users WHERE username = '${req.user.username}'`, (err, result) => {
+  let findItems = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN university AS un
+    ON u.university_id = un.university_id
+    INNER JOIN faculty AS f
+    ON u.faculty_id = f.faculty_id
+    INNER JOIN department AS d
+    ON u.department_id = d.department_id
+    INNER JOIN skills AS sk
+    ON u.skills_id = sk.skills_id
+    INNER JOIN sell_items AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY sell_items_id
+    )
+    ) AS m ON s.sell_items_id = m.sell_items_id WHERE u.username = '${req.user.username}'`;
+  connection.query(findItems, (err, result) => {
     if (err) throw err;
-    res.render('profile/profile', { user: result[0] });
+    let findLodges = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id WHERE u.username = '${req.user.username}'`;
+    connection.query(findLodges, (err, result1) => {
+      if(err) throw err;
+      let registerDate = moment(result[0].register_date).format("MMMM, YYYY");
+      res.render('profile/profile', { user: result, date: registerDate, lodge: result1 });
+    }) 
   })
 }
 

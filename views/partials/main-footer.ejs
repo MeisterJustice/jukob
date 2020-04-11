@@ -65,3 +65,23 @@
         </div>
     </div>
 </footer>
+
+<%if(currentUser) {%>
+<footer class="d-block mt-2 d-lg-none footer-bottom fixed-bottom">
+    <div class="px-2 py-3 d-flex justify-content-around align-items-center">
+        <div>
+            <a data-toggle="tooltip" data-placement="top" title="You have an unread notification"
+                class="px-lg-3 tooltip-red" href="#"><i class="fas fa-bell fa-2x text-dark"></i></a>
+        </div>
+        <div>
+            <a data-toggle="tooltip" data-placement="top" title="Create new sell"
+                class="px-lg-3 tooltip-red" href="#"><i class="fas fa-plus fa-2x text-dark"></i></a>
+        </div>
+        <div>
+            <a data-toggle="tooltip" data-placement="top" title="Visit your profile"
+                class="px-lg-3 tooltip-red" href="#"><img class="rounded-circle" style="object-fit: cover"
+                    src="<%=currentUser.image.secure_url%>" height="27" width="29" alt=""></a>
+        </div>
+    </div>
+</footer>
+<%}%>

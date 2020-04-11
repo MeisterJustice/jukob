@@ -75,11 +75,11 @@
                 <%if(user.faculty_id) {%>
                 <option value="<%=user.faculty_id%>">select</option>
                 <%faculty.forEach((faculty) => {%>
-                <option value="<%=faculty.faculty_id%>"><%=faculty.name%></option>
+                <option value="<%=faculty.faculty_id%>"><%=faculty.faculty_name%></option>
                 <%})%>
                 <%}%>
                 <%faculty.forEach((faculty) => {%>
-                <option value="<%=faculty.faculty_id%>"><%=faculty.name%></option>
+                <option value="<%=faculty.faculty_id%>"><%=faculty.faculty_name%></option>
                 <%})%>
             </select>
         </div>
@@ -89,11 +89,11 @@
                 <%if(user.department_id) {%>
                 <option value="<%=user.department_id%>">select</option>
                 <%department.forEach((department) => {%>
-                <option value="<%=department.department_id%>"><%=department.name%></option>
+                <option value="<%=department.department_id%>"><%=department.department_name%></option>
                 <%})%>
                 <%}%>
                 <%department.forEach((dep) => {%>
-                <option value="<%=dep.department_id%>"><%=dep.name%></option>
+                <option value="<%=dep.department_id%>"><%=dep.department_name%></option>
                 <%})%>
             </select>
         </div>

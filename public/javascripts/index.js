@@ -1,7 +1,7 @@
 // loading animation
-  document.addEventListener("DOMContentLoaded", function (event) {
-    $(".body").fadeOut(2000);
-  });
+document.addEventListener("DOMContentLoaded", function (event) {
+  $(".body").fadeOut('slow');
+});
 
   // navbar 
   $(function () {
