@@ -1,131 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include ../partials/header %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-
-    <% if(error && error.length > 0){ %>
-    <div class="alert alert-danger text-center" role="alert">
-        <%=error%>
-    </div>
-    <% } %>
-    <% if(success && success.length > 0){ %>
-    <div class="alert alert-success text-center" role="alert">
-        <%=success%>
-    </div>
-    <% } %>
-
-    <div><%=user.username%></div>
-    <img src="<%=user.secure_image_url%>" height="250" width="250" alt="">
-
-    <form action="/profile/?_method=PUT" method="post" enctype="multipart/form-data">
-        <div>
-            <label for="image">change profile image</label>
-            <input id="profileImage" name="image" type="file">
-        </div>
-        <div>
-            <label>username</label>
-            <input name="username" type="text" value="<%=user.username%>">
-        </div>
-        <div>
-            <label>email</label>
-            <input name="email" type="text" value="<%=user.email%>">
-        </div>
-        <div>
-            <label>first_name</label>
-            <input name="first_name" type="text" value="<%=user.first_name%>">
-        </div>
-        <div>
-            <label>last_name</label>
-            <input name="last_name" type="text" value="<%=user.last_name%>">
-        </div>
-        <div>
-            <label>phone_number</label>
-            <%if(user.phone_number) {%>
-                <input name="phone_number" type="number" value="<%=user.phone_number%>">
-            <%} else {%>
-                <input name="phone_number" type="number" required>
+<div id="profile" class="container">
+    <div class="row">
+        <div class="col-12 col-lg-3 profile-side border-top-0 p-0 rounded">
+            <div class="d-flex justify-content-center pt-5">
+                <img class="rounded-circl image-fluid" src="<%=user.secure_image_url%>" alt="<%=user.username%>">
+            </div>
+            <div class="pt-2 text-center">
+                <h4 class="title"><%=user.username%></h4>
+            </div>
+            <%if(user.first_name) {%>
+            <div class="pt-1">
+                <div class="text-muted text-center"><%=user.first_name%> <%=user.last_name%></div>
+            </div>
             <%}%>
+            <%if(user.skill_title) {%>
+            <div class="pt-1">
+                <div class="text-muted text-center"><%=user.skill_title%></div>
+            </div>
+            <%}%>
+            <div class="pt-1 text-center review"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0 (11 reviews)
+            </div>
+            <div class="profile-border my-5"></div>
+            <%if(user.name) {%>
+            <div class="d-flex justify-content-between">
+                <div class="text-muted"><i class="fas fa-graduation-cap pr-2"></i>Institution</div>
+                <div class="text-muted"><%=user.name%> </div>
+            </div>
+            <%}%>
+            <%if(user.faculty_name) {%>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-university pr-2"></i> Faculty</div>
+                <div class="text-muted"><%=user.faculty_name%> </div>
+            </div>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-building pr-2"></i> Department</div>
+                <div class="text-muted"><%=user.department_name%></div>
+            </div>
+            <%}%>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-user pr-2"></i> Member since</div>
+                <div class="text-muted"><%=date%>
+        </div>
+    </div>
+</div>
+<div class="col-12 col-lg-9">
+    <nav class="profile-tab py-5 pl-lg-3">
+        <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                aria-controls="nav-home" aria-selected="true">Settings</a>
+        </div>
+    </nav>
+    <div class="tab-content pl-lg-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="analytics py-5">
+                <div class="p-0 m-0">
+                    <% if(error && error.length > 0){ %>
+                        <div class="alert alert-danger text-center" role="alert">
+                        <%=error%>
+                        </div>
+                    <% } %>
+                    <% if(success && success.length > 0){ %>
+                        <div class="alert alert-success text-center" role="alert">
+                        <%=success%>
+                        </div>
+                    <% } %>
+                </div>
+                <form class="container needs-validation" action="/profile/?_method=PUT" method="post" enctype="multipart/form-data" novalidate>
+                    <div class="form-row">
+                        <div class="col-12 border-bottom py-3">
+                            <label for="change-image" class="title">Change profile image</label>
+                                <input class="ml-2 file-upload" id="change-image" name="image" type="file">
+                        </div>
 
+                        <div class="col-12 col-lg-6 border-bottom py-3">
+                            <label for="change-first-name" class="title">first name</label>
+                            <div>
+                                <input class="form-control" id="change-first-name" name="first_name" type="text"
+                                    value="<%=user.first_name%>" required>
+                            </div>
+                            
+                        </div>
+                        <div class="col-12 col-lg-6 border-bottom py-3">
+                            <label for="change-last-name" class="title">last name</label>
+                            <div>
+                                <input class="form-control" id="change-last-name" name="last_name" type="text"
+                                    value="<%=user.last_name%>" required>
+                            </div>
+
+                        </div>
+                        <div class="col-12 border-bottom py-3">
+                            <label for="change-phone-number" class="title">phone number</label>
+                            <%if(user.phone_number) {%>
+                            <div>
+                                <input class="form-control" id="change-phone-number" name="phone_number" type="number"
+                                    value="<%=user.phone_number%>" required>
+                            </div>
+                            <%} else {%>
+                            <div>
+                                <input class="form-control" id="change-phone-number" name="phone_number" type="number" required>
+                            </div>
+                            <%}%>
+                            
+                        </div>
+                        <div class="col-12 col-lg-6 border-bottom py-3">
+                            <label class="title" for="change-faculty">Faculty</label>
+                            <div>
+                                <select class="form-control" name="faculty" id="change-faculty">
+                                    <%if(user.faculty_id) {%>
+                                        <option value="<%=user.faculty_id%>"><%=user.faculty_name%></option>
+                                        <%faculty.forEach((fac) => {%>
+                                        <option value="<%=fac.faculty_id%>"><%=fac.faculty_name%></option>
+                                        <%})%>
+                                    <%} else {%>
+                                        <%faculty.forEach((fac) => {%>
+                                        <option value="<%=fac.faculty_id%>"><%=fac.faculty_name%></option>
+                                        <%})%>
+                                    <%}%>               
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 border-bottom py-3">
+                            <label class="title" for="change-department">Department</label>
+                            <div>
+                                <select class="form-control" name="department" id="change-department">
+                                    <%if(user.department_id) {%>
+                                        <option value="<%=user.department_id%>"><%=user.department_name%></option>
+                                        <%department.forEach((dept) => {%>
+                                        <option value="<%=dept.department_id%>"><%=dept.department_name%></option>
+                                        <%})%>
+                                    <%} else {%>
+                                        <%department.forEach((dept) => {%>
+                                        <option value="<%=dept.department_id%>"><%=dept.department_name%></option>
+                                        <%})%>
+                                    <%}%>               
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom py-3">
+                            <label class="title" for="change-university">Institution</label>
+                            <div>
+                                <select class="form-control" name="university" id="">
+                                    <%if(user.university_id) {%>
+                                        <option value="<%=user.university_id%>"><%=user.name%></option>
+                                        <%university.forEach((uni) => {%>
+                                        <option value="<%=uni.university_id%>"><%=uni.name%></option>
+                                        <%})%>
+                                    <%} else {%>
+                                        <%university.forEach((uni) => {%>
+                                        <option value="<%=uni.university_id%>"><%=uni.name%></option>
+                                        <%})%>
+                                    <%}%>               
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom py-3">
+                            <label class="title" for="change-skill">Skill</label>
+                            <div>
+                                <select class="form-control" name="skill" id="change-skill">
+                                    <%if(user.skills_id) {%>
+                                        <option value="<%=user.skills_id%>"><%=user.skill_title%></option>
+                                        <%skill.forEach((skill) => {%>
+                                        <option value="<%=skill.skills_id%>"><%=skill.skill_title%></option>
+                                        <%})%>
+                                    <%} else {%>
+                                        <%skill.forEach((skill) => {%>
+                                        <option value="<%=skill.skills_id%>"><%=skill.skill_title%></option>
+                                        <%})%>
+                                    <%}%>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12 border-bottom py-3">
+                            <label class="title" for="confirm">confirm with password</label>
+                            <div>
+                                <input class="form-control" id="confirm" name="currentPassword" type="password">
+                            </div>
+                        </div>
+                        <div class="col-12 py-3">
+                            <button class="btn btn-r btn-block btn-round">submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div>
-            <label for="">university / college / polythecnic</label>
-            <select name="university" id="">
-                <%if(user.university_id) {%>
-                <option value="<%=user.university_id%>">select</option>
-                <%university.forEach((uni) => {%>
-                <option value="<%=uni.university_id%>"><%=uni.name%></option>
-                <%})%>
-                <%}%>
-                
-                <%university.forEach((uni) => {%>
-                <option value="<%=uni.university_id%>"><%=uni.name%></option>
-                <%})%>
-            </select>
-        </div>
-        <div>
-            <label for="">faculty</label>
-            <select name="faculty" id="">
-                <%if(user.faculty_id) {%>
-                <option value="<%=user.faculty_id%>">select</option>
-                <%faculty.forEach((faculty) => {%>
-                <option value="<%=faculty.faculty_id%>"><%=faculty.faculty_name%></option>
-                <%})%>
-                <%}%>
-                <%faculty.forEach((faculty) => {%>
-                <option value="<%=faculty.faculty_id%>"><%=faculty.faculty_name%></option>
-                <%})%>
-            </select>
-        </div>
-        <div>
-            <label for="">department</label>
-            <select name="department" id="">
-                <%if(user.department_id) {%>
-                <option value="<%=user.department_id%>">select</option>
-                <%department.forEach((department) => {%>
-                <option value="<%=department.department_id%>"><%=department.department_name%></option>
-                <%})%>
-                <%}%>
-                <%department.forEach((dep) => {%>
-                <option value="<%=dep.department_id%>"><%=dep.department_name%></option>
-                <%})%>
-            </select>
-        </div>
-        <div>
-            <label for="">skill</label>
-            <select name="skill" id="">
-                <%if(user.skills_id) {%>
-                <option value="<%=user.skills_id%>">select</option>
-                <%skill.forEach((skill) => {%>
-                <option value="<%=skill.skill_id%>"><%=skill.skill_title%></option>
-                <%})%>
-                <%}%>
-                <%skill.forEach((skill) => {%>
-                <option value="<%=skill.skills_id%>"><%=skill.skill_title%></option>
-                <%})%>
-            </select>
-        </div>
-        <div>
-            <label>confirm with password</label>
-            <input name="currentPassword" type="password">
-        </div>
-        <div>
-            <button>submit</button>
-        </div>
-    </form>
-    <br>
-    <br>
-    <div>delete account</div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% include ../partials/main-footer %>
+</section>
+<% include ../partials/footer %>
+    <!-- <div>delete account</div>
     <form action="/profile/delete?_method=DELETE" method="post">
         <button>delete</button>
-    </form>
-
-</body>
-
-</html>
+    </form> -->

@@ -19,6 +19,16 @@
         <div class="login-content">
             <form action="/login" method="post">
                 <img src="images/avatar.svg">
+                <% if(error && error.length > 0){ %>
+                    <div style="color: rgb(247, 57, 57)" class="alert alert-danger text-center" role="alert">
+                    <%=error%>
+                    </div>
+                <% } %>
+                <% if(success && success.length > 0){ %>
+                    <div class="alert alert-success text-center" role="alert">
+                    <%=success%>
+                    </div>
+                <% } %>
                 <h2 class="title">Welcome Back</h2>
                 <div class="input-div one">
                     <div class="i">

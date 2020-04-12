@@ -17,12 +17,12 @@ export const checkIfUserExists = async (req, res, next) => {
     let emailExists = await User.findOne({ 'email': req.body.email });
     let userNameExists = await User.findOne({ 'username': req.body.username });
     if (emailExists) {
-        req.flash('error', `A user with the given email, ${emailExists} is already registered`);
-        return res.redirect('/register');
+        req.flash('error', `A user with the given email, ${req.body.email} is already registered`);
+        return res.redirect('back');
     }
     if (userNameExists) {
-        req.flash('error', `A user with the given username, ${userNameExists} is already registered`);
-        return res.redirect('/register');
+        req.flash('error', `A user with the given username, ${req.body.username} is already registered`);
+        return res.redirect('back');
     }
     next();
 }

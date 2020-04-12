@@ -268,9 +268,20 @@ export const getProfile = async (req, res, next) => {
 }
 
 export const getProfileSettings = async (req, res, next) => {
-  let findUserInfo = `SELECT * FROM users WHERE username = '${req.user.username}'`;
+  let findUserInfo = `SELECT * 
+  FROM users AS u
+  LEFT JOIN university AS un
+  ON u.university_id = un.university_id
+  LEFT JOIN faculty AS f
+  ON u.faculty_id = f.faculty_id
+  LEFT JOIN department AS d
+  ON u.department_id = d.department_id
+  LEFT JOIN skills AS sk
+  ON u.skills_id = sk.skills_id
+  WHERE u.username = '${req.user.username}'`;
   connection.query(findUserInfo, (err, result) => {
     if (err) throw err;
+    console.log(result[0]);
     let findDepartments = `SELECT * FROM department`;
     connection.query(findDepartments, (err, department) => {
       if (err) throw err;
@@ -284,7 +295,8 @@ export const getProfileSettings = async (req, res, next) => {
           connection.query(findFaculty, (err, faculty) => {
             if (err) throw err;
             console.log(result[0]);
-            res.render('profile/settings', { user: result[0], department, skill, university, faculty });
+            let registerDate = moment(result[0].register_date).format("MMMM, YYYY");
+            res.render('profile/settings', { user: result[0], date: registerDate, department, skill, university, faculty });
           })
         })
 
@@ -349,8 +361,8 @@ export const getProfileShow = async (req, res, next) => {
 
 export const putProfile = async (req, res, next) => {
   const {
-    username,
-    email,
+    // username,
+    // email,
     first_name,
     last_name,
     phone_number,
@@ -365,19 +377,19 @@ export const putProfile = async (req, res, next) => {
   let ski = await parseInt(skill);
   let phone = await parseInt(phone_number);
   const user = await User.findById(req.user._id);
-  if (username) user.username = username;
-  if (email) user.email = email;
+  // if (username) user.username = username;
+  // if (email) user.email = email;
   if (req.file) {
     // if (user.image.public_id) await cloudinary.v2.uploader.destroy(user.image.public_id);
     const { secure_url, public_id } = req.file;
     user.image = { secure_url, public_id };
-    let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone, secure_image_url: secure_url, public_image_id: public_id, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
+    let data = { first_name: first_name, last_name: last_name, phone_number: phone, secure_image_url: secure_url, public_image_id: public_id, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
     let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
     connection.query(updateUser, data, (err, result2) => {
       if (err) throw err;
     });
   }
-  let data = { username: username, email: email, first_name: first_name, last_name: last_name, phone_number: phone, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
+  let data = { first_name: first_name, last_name: last_name, phone_number: phone, department_id: dep, skills_id: ski, university_id: uni, faculty_id: fac };
   let updateUser = `UPDATE users SET ? WHERE username = '${req.user.username}'`;
   await user.save();
   await connection.query(updateUser, data, (err, result2) => {
@@ -386,7 +398,7 @@ export const putProfile = async (req, res, next) => {
   const login = await util.promisify(req.login.bind(req));
   await login(user);
   req.flash('success', 'Profile successfully updated!');
-  res.redirect(`back`);
+  res.redirect(`/profile`);
 }
 
 export const deleteUser = async (req, res, next) => {

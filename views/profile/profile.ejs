@@ -23,7 +23,7 @@
                     class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0 (11 reviews)
             </div>
             <div class="pt-2">
-                <a href="/profile/setting" class="btn btn-r btn-block btn-lg">Settings</a>
+                <a href="/profile/settings" class="btn btn-r btn-block btn-lg">Settings</a>
             </div>
             <div class="profile-border my-5"></div>
             <%if(user[0].name) {%>
@@ -60,6 +60,18 @@
         </div>
     </nav>
     <div class="tab-content pl-lg-3" id="nav-tabContent">
+        <div class="p-0 m-0">
+            <% if(error && error.length > 0){ %>
+                <div class="alert alert-danger text-center" role="alert">
+                <%=error%>
+                </div>
+            <% } %>
+            <% if(success && success.length > 0){ %>
+                <div class="alert alert-success text-center" role="alert">
+                <%=success%>
+                </div>
+            <% } %>
+        </div>
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <h4 class="title">Numbers</h4>
             <div class="analytics row py-5 mt-3">
@@ -93,6 +105,7 @@
     </div>
     <div class="items tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+             
             <%user.forEach((item) => {%>
                     <%if(item.image_url) {%>
                     <div class="col mb-4 card-deck">
@@ -127,6 +140,7 @@
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+            
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
                     <%if(lodge[0]) {%>
                     <%lodge.forEach((item) => {%>
