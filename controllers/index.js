@@ -224,17 +224,17 @@ export const getProfile = async (req, res, next) => {
   let findItems = `SELECT *
     FROM
     users AS u
-    INNER JOIN university AS un
+    LEFT JOIN university AS un
     ON u.university_id = un.university_id
-    INNER JOIN faculty AS f
+    LEFT JOIN faculty AS f
     ON u.faculty_id = f.faculty_id
-    INNER JOIN department AS d
+    LEFT JOIN department AS d
     ON u.department_id = d.department_id
-    INNER JOIN skills AS sk
+    LEFT JOIN skills AS sk
     ON u.skills_id = sk.skills_id
-    INNER JOIN sell_items AS s
+    LEFT JOIN sell_items AS s
     ON s.users_id = u.users_id
-    INNER JOIN (
+    LEFT JOIN (
     SELECT *
     FROM item_images
     WHERE item_images_id IN (
@@ -296,65 +296,54 @@ export const getProfileSettings = async (req, res, next) => {
 }
 
 export const getProfileShow = async (req, res, next) => {
-  let userSell = `SELECT *
-  FROM
-  users AS u
-  INNER JOIN sell_items AS s
-  ON u.users_id = s.users_id
-  INNER JOIN (
-  SELECT *
-  FROM item_images
-  WHERE item_images_id IN (
-  SELECT MAX(item_images_id)
-  FROM item_images
-  GROUP BY sell_items_id
-  )
-  ) AS m 
-  ON s.sell_items_id = m.sell_items_id
-  WHERE u.username = '${req.params.id}'`;
-  connection.query(userSell, (err, user) => {
+  if(req.user) {
+    if(req.user.username == req.params.id) {
+      res.redirect('/profile');
+    }
+  }
+  let findItems = `SELECT *
+    FROM
+    users AS u
+    LEFT JOIN university AS un
+    ON u.university_id = un.university_id
+    LEFT JOIN faculty AS f
+    ON u.faculty_id = f.faculty_id
+    LEFT JOIN department AS d
+    ON u.department_id = d.department_id
+    LEFT JOIN skills AS sk
+    ON u.skills_id = sk.skills_id
+    LEFT JOIN sell_items AS s
+    ON s.users_id = u.users_id
+    LEFT JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY sell_items_id
+    )
+    ) AS m ON s.sell_items_id = m.sell_items_id WHERE u.username = '${req.params.id}'`;
+  connection.query(findItems, (err, result) => {
     if (err) throw err;
-    console.log(user)
-    let userRent = `SELECT *
-      FROM
-      users AS u
-      INNER JOIN rent_items AS s
-      ON u.users_id = s.users_id
-      INNER JOIN (
-      SELECT *
-      FROM item_images
-      WHERE item_images_id IN (
-      SELECT MAX(item_images_id)
-      FROM item_images
-      GROUP BY rent_items_id
-      )
-      ) AS m 
-      ON s.rent_items_id = m.rent_items_id
-      WHERE u.username = '${req.params.id}'`;
-    connection.query(userRent, (err, user2) => {
-      if (err) throw err;
-      let userLodge = `SELECT *
-        FROM
-        users AS u
-        INNER JOIN lodges AS s
-        ON u.users_id = s.users_id
-        INNER JOIN (
-        SELECT *
-        FROM item_images
-        WHERE item_images_id IN (
-        SELECT MAX(item_images_id)
-        FROM item_images
-        GROUP BY lodges_id
-        )
-        ) AS m 
-        ON s.lodges_id = m.lodges_id
-        WHERE u.username = '${req.params.id}'`;
-      connection.query(userLodge, (err, user3) => {
-        if (err) throw err;
-        res.render('profile/show', { sell: user, rent: user2, lodge: user3 });
-      })
-    })
-
+    let findLodges = `SELECT *
+    FROM
+    users AS u
+    INNER JOIN lodges AS s
+    ON s.users_id = u.users_id
+    INNER JOIN (
+    SELECT *
+    FROM item_images
+    WHERE item_images_id IN (
+    SELECT MAX(item_images_id)
+    FROM item_images
+    GROUP BY lodges_id
+    )
+    ) AS m ON s.lodges_id = m.lodges_id WHERE u.username = '${req.params.id}'`;
+    connection.query(findLodges, (err, result1) => {
+      if(err) throw err;
+      let registerDate = moment(result[0].register_date).format("MMMM, YYYY");
+      res.render('profile/show', { user: result, date: registerDate, lodge: result1 });
+    }) 
   })
 }
 

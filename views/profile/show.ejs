@@ -1,58 +1,180 @@
-<!DOCTYPE html>
-<html lang="en">
+<% include ../partials/header %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
-    <h2>profile show page</h2>
-    <div>
-        <h3><%=sell[0].first_name%></h3>
-        <h3><%=sell[0].phone_number%></h3>
-    </div>
-    <p>items posted on sell</p>
-    <%sell.forEach((sell) => {%>
-    <div>
-        <h5><a href="/sell/<%=sell.sell_items_id%>"><%=sell.title%></a></h5>
-        <div>
-            <p><%=sell.description%></p>
-            <p><%=sell.price%></p>
-        </div>
-        <div>
-            <img src="<%=sell.image_url%>" height="100" width="100" alt="">
-        </div>
-    </div>
-    <%})%>
-
-    <p>items posted on rent</p>
-    <%rent.forEach((rent) => {%>
-    <div>
-        <h5><a href="/rent/<%=rent.rent_items_id%>"><%=rent.title%> </a> </h5> <div>
-            <p><%=rent.description%></p>
-            <p><%=rent.price%></p>
-        </div>
-        <div>
-            <img src="<%=rent.image_url%>" height="100" width="100" alt="">
-        </div>
-    </div>
-    <%})%>
-
-    <p>lodges posted</p>
-    <%lodge.forEach((lodge) => {%>
-    <div>
-        <h5><a href="/lodge/<%=lodge.lodges_id%>"><%=lodge.name%> </a> </h5> <div>
-            <p><%=lodge.description%></p>
-            <p><%=lodge.price%></p>
-        </div>
-        <div>
-            <img src="<%=lodge.image_url%>" height="100" width="100" alt="">
+<div id="profile" class="container">
+    <div class="row">
+        <div class="col-12 col-lg-3 profile-side border-top-0 p-0 rounded">
+            <div class="d-flex justify-content-center pt-5">
+                <img class="rounded-circl image-fluid" src="<%=user[0].secure_image_url%>" alt="<%=user[0].username%>">
+            </div>
+            <div class="pt-2 text-center">
+                <h4 class="title"><%=user[0].username%></h4>
+            </div>
+            <%if(user[0].first_name) {%>
+            <div class="pt-1">
+                <div class="text-muted text-center"><%=user[0].first_name%> <%=user[0].last_name%></div>
+            </div>
+            <%}%>
+            <%if(user[0].skill_title) {%>
+            <div class="pt-1">
+                <div class="text-muted text-center"><%=user[0].skill_title%></div>
+            </div>
+            <%}%>
+            <div class="pt-1 text-center review"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                    class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i> 5.0 (11 reviews)
+            </div>
+            <div class="pt-2">
+                <a href="#" class="text-muted text-center">report</a>
+            </div>
+            <div class="profile-border my-5"></div>
+            <%if(user[0].name) {%>
+            <div class="d-flex justify-content-between">
+                <div class="text-muted"><i class="fas fa-graduation-cap pr-2"></i>Institution</div>
+                <div class="text-muted"><%=user[0].name%> </div>
+            </div>
+            <%}%>
+            <%if(user[0].faculty_name) {%>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-university pr-2"></i> Faculty</div>
+                <div class="text-muted"><%=user[0].faculty_name%> </div>
+            </div>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-building pr-2"></i> Department</div>
+                <div class="text-muted"><%=user[0].department_name%></div>
+            </div>
+            <%}%>
+            <div class="d-flex justify-content-between pt-1">
+                <div class="text-muted"><i class="fas fa-user pr-2"></i> Member since</div>
+                <div class="text-muted"><%=date%>
         </div>
     </div>
-    <%})%>
-</body>
+</div>
+<div class="col-12 col-lg-9">
+    <nav class="profile-tab py-5 pl-lg-3">
+        <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                aria-controls="nav-profile" aria-selected="false">Items</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab"
+                aria-controls="nav-contact" aria-selected="false">Lodges</a>
+        </div>
+    </nav>
+    <div class="tab-content pl-lg-3" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <h4 class="title">Numbers</h4>
+            <div class="analytics row py-5 mt-3">
+                <div class="col-6 col-lg-3">
+                    <div class="text-muted text-center">Total earnings</div>
+                    <h5 class="text-center pt-2">$8</h5>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="text-muted text-center">Completed Orders</div>
+                    <h5 class="text-center pt-2">7</h5>
+                </div>
+                <%var num = 0;%>
+                <%for(var i = 0; i < user.length; i++) {%>
+                <%if(user[i].title) {%>
+                <%num ++%>
+                <%}%>
+                <%}%>
+                <div class="col-6 col-lg-3">
+                    <div class="text-muted text-center">Items posted</div>
+                    <h5 class="text-center pt-2"><%=num%></h5>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="text-muted text-center">Lodges posted</div>
+                    <%if(lodge[0]) {%>
+                    <h5 class="text-center pt-2"><%=lodge.length%></h5>
+                    <%} else {%>
+                    <h5 class="text-center pt-2">0</h5>
+                    <%}%>
+            </div>
+        </div>
+    </div>
+    <div class="items tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+            <%user.forEach((item) => {%>
+                    <%if(item.image_url) {%>
+                    <div class="col mb-4 card-deck">
+                        <div class="card">
+                            <a href="/sell/<%=item.sell_items_id%>">
+                                <img src="<%=item.image_url%>" class="card-img-top d-none d-md-block" height="150"
+                                    alt="<%=item.title%>">
+                                <img src="<%=item.image_url%>" class="card-img-top d-block d-md-none" height="200"
+                                    alt="<%=item.title%>">
 
-</html>
+                                <div class="card-body">
+                                    <h6 class="card-title text-dark"><%=item.title%></h6>
+                                    <!-- <p class="card-text text-muted"><%=item.description.substring(0, 20)%> ... -->
+                                </div>
+                            </a>
+                            <div class="card-footer d-flex justify-content-between">
+                                <div><small class="text-muted">Sold for <span style="font-size: 16px;"
+                                            class="title">&#8358;<%=item.price%></span></small></div>
+                                <div><i class="fas fa-heart pointer"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <%} else {%>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div>
+                            <h4 class="title">Nothing posted yet</h4>
+                        </div>
+                    </div>
+                    <%}%>
+            <%})%>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+                    <%if(lodge[0]) {%>
+                    <%lodge.forEach((item) => {%>
+                    <div class="col mb-4 card-deck">
+                        <div class="card">
+                            <a href="/lodge/<%=item.lodges_id%>">
+                                <img src="<%=item.image_url%>" class="card-img-top d-none d-md-block" height="150"
+                                    alt="<%=item.name%>">
+                                <img src="<%=item.image_url%>" class="card-img-top d-block d-md-none" height="200"
+                                    alt="<%=item.name%>">
+
+                                <div class="card-body">
+                                    <h6 class="card-title text-dark">name: <%=item.name%></h6>
+                                    <small class="card-text text-muted">location: <%=item.location%></small>
+                                </div>
+                            </a>
+                            <div class="card-footer d-flex justify-content-between">
+                                <div><small class="text-muted">Price: <span style="font-size: 16px;"
+                                            class="title">&#8358;<%=item.price%></span></small></div>
+                                <div><i class="fas fa-heart pointer"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <%})%>
+                    <%} else {%>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div>
+                            <h4 class="title">No lodges posted yet</h4>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<% include ../partials/main-footer %>
+                    </section>
+                    <% include ../partials/footer %>
